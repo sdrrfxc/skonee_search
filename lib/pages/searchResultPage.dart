@@ -1,7 +1,11 @@
+
+
+import 'package:html/parser.dart' as parser;
+
 import 'package:flutter/material.dart';
+
 import 'package:skonee_search/models/resultModel.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../services/searchService.dart';
 
 class SearchResults extends StatefulWidget {
@@ -82,19 +86,38 @@ class _SearchResultsState extends State<SearchResults> {
       itemBuilder: (_, index) => _toWidget(results[index]),
       separatorBuilder: (_, __) => const Divider(),
       itemCount: results.length,
+
     );
   }
 
   Widget _toWidget(Result result) {
     final Uri url = Uri.parse(result.url.toString());
-    return ListTile(
-      onTap: (){
-        _launchUrl(url);
-      },
-      title: Text(result.title.toString()),
-      subtitle: Text(result.url.toString()),
+    return descriptionToolTip(
+      description: result.description,
+      child: ListTile(
+        onTap: (){
+          _launchUrl(url);
+        },
+        title: Text(result.title.toString()),
+        subtitle: Text(result.url.toString()),
+        leading: Image.network(result.image),
+
+      ),
     );
   }
+  Widget descriptionToolTip({String? description, required Widget child}) {
+    return Tooltip(
+      message: parser.parseFragment(description).text,
+      triggerMode: TooltipTriggerMode.longPress,
+      showDuration: const Duration(seconds: 30),
+      child: child,
+
+    );
+  }
+
+
+
+
   _launchUrl(Uri url) async {
     if (!await launchUrl(url)) {
       Stream.error("error");
