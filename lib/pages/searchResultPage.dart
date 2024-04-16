@@ -33,6 +33,7 @@ class _SearchResultsState extends State<SearchResults> {
     setState(() {
       currentSearchQuery = newQuery;
     });
+  }
   
 
   @override

@@ -53,10 +53,8 @@ class HomePage extends StatelessWidget {
               ),
               controller: searchController,
               onSubmitted: (query) {
-                // Navigate to search results page when the user submits the search query
                 Navigator.of(context).push(MaterialPageRoute(builder: (_) => SearchResults(searchTerm: searchController.text)));
-                ));
-              },
+              }
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
@@ -64,7 +62,7 @@ class HomePage extends StatelessWidget {
                 // Navigate to search results page when the user clicks the button
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (_) =>
-                      SearchResults(searchQuery: searchController.text),
+                      SearchResults(searchTerm: searchController.text),
                 ));
               },
               style: ElevatedButton.styleFrom(
