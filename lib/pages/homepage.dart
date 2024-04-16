@@ -20,6 +20,7 @@ class HomePage extends StatelessWidget {
                   ),
             ),
           ),
+
         ),
       ),
       body: Padding(
@@ -53,8 +54,7 @@ class HomePage extends StatelessWidget {
               controller: searchController,
               onSubmitted: (query) {
                 // Navigate to search results page when the user submits the search query
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => SearchResults(searchQuery: query),
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) => SearchResults(searchTerm: searchController.text)));
                 ));
               },
             ),
