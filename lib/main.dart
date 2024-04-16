@@ -14,13 +14,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Skonee',
       theme: ThemeData(
-
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const HomePage(),
-
-      );
-
+      home: HomePage(),
+    );
   }
 }
