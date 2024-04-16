@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:skonee_search/models/resultModel.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -17,13 +16,52 @@ class _SearchResultsState extends State<SearchResults> {
   @override
   void initState() {
     super.initState();
+    searchController = TextEditingController(text: widget.searchTerm);
+    currentSearchQuery = widget.searchTerm;
   }
+  late TextEditingController searchController;
+  String currentSearchQuery = '';
+
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  void updateSearchResults(String newQuery) {
+    setState(() {
+      currentSearchQuery = newQuery;
+    });
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: TextField(
+          controller: searchController,
+          autofocus: true,
+          textInputAction: TextInputAction.search,
+          onSubmitted: updateSearchResults,
+          decoration: InputDecoration(
+            hintText: "Search...",
+            border: InputBorder.none,
+            hintStyle: TextStyle(color: Colors.black),
+          ),
+          style: TextStyle(color: Colors.black),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              updateSearchResults(searchController.text);
+            },
+            icon: Icon(Icons.search),
+          ),
+        ],
+      ),
       body: FutureBuilder<List<Result>>(
-        future: SearchService().getResults(widget.searchTerm),
+        future: SearchService().getResults(currentSearchQuery),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final results = snapshot.data!;
@@ -62,3 +100,4 @@ class _SearchResultsState extends State<SearchResults> {
     }
   }
 }
+
