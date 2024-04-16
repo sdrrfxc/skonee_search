@@ -1,8 +1,5 @@
 import 'dart:convert';
 import 'dart:core';
-import 'dart:core';
-import 'dart:math';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:skonee_search/models/resultModel.dart';
 
