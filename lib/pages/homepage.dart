@@ -25,10 +25,11 @@ class _HomePageState extends State<HomePage> {
             controller: searchController,
           ),
           ElevatedButton(onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SearchResults()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (_) => SearchResults(searchTerm: searchController.text)));
           }, child: const Text("Search"))
         ],
       )
     );
   }
+
 }
