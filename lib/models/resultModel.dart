@@ -18,7 +18,6 @@ class Result {
   });
 
   Result.parse(Map<String, dynamic> result) {
-    print(result);
     url = result['url'].toString();
     title = result['title'].toString();
     description = result['description'].toString();
