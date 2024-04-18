@@ -92,6 +92,7 @@ class _SearchResultsState extends State<SearchResults> {
 
   Widget _toWidget(Result result) {
     final Uri url = Uri.parse(result.url.toString());
+
     return descriptionToolTip(
       description: result.description,
       child: ListTile(
@@ -100,8 +101,9 @@ class _SearchResultsState extends State<SearchResults> {
         },
         title: Text(result.title.toString()),
         subtitle: Text(result.url.toString()),
-        leading: Image.network(result.image),
-
+        leading: Image.network(result.image,
+          errorBuilder: (context, error, stackTrace) => Image(image: AssetImage('Assets/webicon.png')),
+        ),
       ),
     );
   }
@@ -117,7 +119,11 @@ class _SearchResultsState extends State<SearchResults> {
 
 
 
-
+  _getImage(String imageUrl) {
+      // return Image.network(imageUrl, errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+      //   return Text('Your error widget...');
+      // },);
+  }
   _launchUrl(Uri url) async {
     if (!await launchUrl(url)) {
       Stream.error("error");
